@@ -1,28 +1,37 @@
-mod actor;
+
+
+// mod actor;
+// mod game_constants;
+// use dialoguer::Input;
+// use crate::actor::actor::*;
 mod game_constants;
-use dialoguer::Input;
-use crate::actor::actor::*;
+mod game;
+mod actor;
+mod console_game;
+use crate::console_game::console_game::start_console_game;
 
 fn main() {
-    let actors = place_actors();
-    actors.iter().for_each(|x| println!("{} {} in room {}", actor_to_string(&x), match x.actor_type { ActorType::You => "are", _ => "is" } ,x.room));
+    start_console_game();
 
-    // Get you
-    let you = actors.iter().find(|x| x.actor_type == ActorType::You).unwrap();
+    // let actors = place_actors();
+    // actors.iter().for_each(|x| println!("{} {} in room {}", actor_to_string(&x), match x.actor_type { ActorType::You => "are", _ => "is" } ,x.room));
 
-    let mut dead = false;
-    while !dead {
-        let tunnels = where_to(*you);
-        let tunnel_list = tunnels.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",");
-        let where_to = format!("You are in room {}. Tunnels lead to {}", you.room, tunnel_list);
-        println!("{}", where_to);
+    // // Get you
+    // let you = actors.iter().find(|x| x.actor_type == ActorType::You).unwrap();
 
-        let answer : String = Input::new().with_prompt("Where to").interact_text().unwrap();
+    // let mut dead = false;
+    // while !dead {
+    //     let tunnels = where_to(*you);
+    //     let tunnel_list = tunnels.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",");
+    //     let where_to = format!("You are in room {}. Tunnels lead to {}", you.room, tunnel_list);
+    //     println!("{}", where_to);
 
-        println!("Ok lets go to {}", answer);
+    //     let answer : String = Input::new().with_prompt("Where to").interact_text().unwrap();
 
-        dead = true;
-    }
+    //     println!("Ok lets go to {}", answer);
+
+    //     dead = true;
+    // }
     // let mut current_room = you.room;
     // let mut new_you = *you;
 

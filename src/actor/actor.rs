@@ -163,12 +163,3 @@ pub fn dangers_nearby_to_string(actors: Vec<Actor>) -> Vec<String> {
     }
     return danger_list;
 }
-
-pub fn actor_to_string(actor: &Actor) -> String {
-    match actor.actor_type {
-        ActorType::You => "You".to_string(),
-        ActorType::Wumpus => "Wumpus".to_string(),
-        ActorType::Pit => "Pit".to_string(),
-        ActorType::Bat => "Bat".to_string(),
-    }
-}
