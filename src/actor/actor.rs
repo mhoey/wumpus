@@ -93,20 +93,7 @@ pub fn move_to_random_room(actor: Actor) -> Actor {
     return new_actor;
 }
 
-pub fn danger_in_room(actor: Actor, other_actors: Vec<Actor>) -> Vec<Actor> {
-    let mut danger_actors: Vec<Actor> = Vec::new();
 
-    if actor.actor_type == ActorType::You {
-        let actors_in_room = other_actors.iter().filter(|x| x.room == actor.room);
-
-        for actor_in_room in actors_in_room {
-            if !danger_actors.iter().any(|x| x.actor_type == actor_in_room.actor_type ) {
-                danger_actors.push(*actor_in_room);
-            }
-        }
-    }
-    return danger_actors;
-}
 
 
 pub fn do_superbat_move(danger_actors: Vec<Actor>) -> bool {
