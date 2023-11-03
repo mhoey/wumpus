@@ -8,9 +8,8 @@ pub fn start_console_game() {
 
     let mut gs = GameState::start_game();
 
-    let mut loop_index = 0;
-    while loop_index < 4 {
-        println!("Game over {}", gs.is_game_over());
+    while !gs.is_game_over() {
+ 
         let actor_locations = gs.get_actor_locations();
         actor_locations.iter().for_each(|x| println!("{} {} in room {}", actor_to_string(&x), match x.actor_type { ActorType::You => "are", _ => "is" } ,x.room));
     
@@ -31,7 +30,18 @@ pub fn start_console_game() {
             }
         };
         gs = gs.move_actor(ActorType::You, tunnel_number);
-        loop_index+=1;
+        if gs.is_illegal_move() {
+            println!("Illegal move")
+        }
+
+        if gs.is_game_over() {
+            println!("{}", game_over_reason_to_string(gs.get_game_over_reason()))
+        }
+
+        let dangers = dangers_nearby_to_string(gs.dangers_nearby());
+        for danger in dangers {
+            println!("Danger {}", danger);    
+        }
     }
 }
 
@@ -42,4 +52,25 @@ fn actor_to_string(actor: &Actor) -> String {
         ActorType::Pit => "Pit".to_string(),
         ActorType::Bat => "Bat".to_string(),
     }
+}
+
+fn game_over_reason_to_string(reason: GameOverReason) -> String {
+    match reason {
+        GameOverReason::NotDeadYet => "You still alive".to_string(),
+        GameOverReason::FellIntoPit => "You fell into a pit".to_string(),
+        GameOverReason::WumpusGotYou => "Wumpus got You!!".to_string()
+    }
+}
+
+fn dangers_nearby_to_string(actors: Vec<&Actor>) -> Vec<String> {
+    let mut danger_list: Vec<String> = Vec::new();
+    for actor in actors {
+        match actor.actor_type {
+            ActorType::Wumpus => danger_list.push("I smell a Wumpus!!".to_string()),
+            ActorType::Bat => danger_list.push("Bats nearby".to_string()),
+            ActorType::Pit => danger_list.push("I feel a draft".to_string()),
+            ActorType::You => {}
+        }
+    }
+    danger_list
 }

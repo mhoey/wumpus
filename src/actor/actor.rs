@@ -83,26 +83,6 @@ pub fn move_to(actor: Actor, room: u16) -> (Actor, bool) {
     }
 }
 
-pub fn move_to_random_room(actor: Actor) -> Actor {
-    let mut rng = thread_rng();
-    let new_random_room = rng.gen_range(1..game_constants::MAX_ROOMS);
-    let new_actor = Actor {
-        actor_type: actor.actor_type,
-        room: new_random_room,
-    };
-    return new_actor;
-}
-
-
-
-
-pub fn do_superbat_move(danger_actors: Vec<Actor>) -> bool {
-
-    if danger_actors.iter().any(|x| x.actor_type == ActorType::Bat) {
-        return true;
-    }
-    return false;
-}
 
 pub fn danger_to_string(actors: Vec<Actor>) -> Vec<String> {
     let mut danger_list: Vec<String> = Vec::new();
@@ -138,15 +118,4 @@ pub fn dangers_nearby(actor: Actor, other_actors: Vec<Actor>) -> Vec<Actor> {
     return danger_actors;
 }
 
-pub fn dangers_nearby_to_string(actors: Vec<Actor>) -> Vec<String> {
-    let mut danger_list: Vec<String> = Vec::new();
-    for actor in actors {
-        match actor.actor_type {
-            ActorType::Wumpus => danger_list.push("I smell a Wumpus!!".to_string()),
-            ActorType::Bat => danger_list.push("Bats nearby".to_string()),
-            ActorType::Pit => danger_list.push("I feel a draft".to_string()),
-            ActorType::You => {}
-        }
-    }
-    return danger_list;
-}
+
