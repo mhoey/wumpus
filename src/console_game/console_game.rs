@@ -6,7 +6,9 @@ use crate::actor::actor::*;
 pub fn start_console_game() {
     println!("Welcome to the game of Wumpus");
 
-    let mut gs = GameState::start_game();
+    let mut gs = GameState::initialize();
+
+    gs.start_game();
 
     while !gs.is_game_over() {
  
@@ -29,9 +31,13 @@ pub fn start_console_game() {
                 return;
             }
         };
-        gs = gs.move_actor(ActorType::You, tunnel_number);
+        gs = gs.move_you(tunnel_number);
         if gs.is_illegal_move() {
             println!("Illegal move")
+        }
+
+        if gs.wumpus_moves {
+            gs = gs.move_wumpus();
         }
 
         if gs.is_game_over() {
