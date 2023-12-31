@@ -9,5 +9,5 @@ pub enum ActorType {
 #[derive(Copy, Clone)]
 pub struct Actor {
     pub actor_type: ActorType,
-    pub room: u16,
+    pub room: u8,
 }

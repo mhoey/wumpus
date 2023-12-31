@@ -1,6 +1,6 @@
-pub const MAX_ROOMS: u16 = 20;
+pub const MAX_ROOMS: u8 = 20;
 
-pub const MAZE: [[u16;3];20] = 
+pub const MAZE: [[u8;3];20] = 
     [
         [2,5,6], // 1
         [1,3,8], // 2 
